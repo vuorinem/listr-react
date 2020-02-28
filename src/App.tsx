@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
+import { Item } from './list/item';
 
 function App() {
   return (
     <div className="App">
-      TODO
+      <Item label="First item" />
     </div>
   );
 }
