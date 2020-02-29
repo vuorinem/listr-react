@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import { Item } from './list/item';
+import { List } from './list/list';
 
 function App() {
   return (
     <div className="App">
-      <Item label="First item" />
+      <List name="My List" />
     </div>
   );
 }
