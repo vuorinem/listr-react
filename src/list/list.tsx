@@ -4,7 +4,6 @@ import { Item } from "./item";
 type ListProps = {
     name: string;
 }
-
 const TestItems = [
     'First item',
     'Second item',
@@ -12,10 +11,15 @@ const TestItems = [
 ];
 
 export class List extends Component<ListProps> {
+    handleReserve(itemIndex: number) {
+        alert(`Reserved '${TestItems[itemIndex]}'`);
+    }
+
     render() {
         const items = TestItems.map((item, index) => (
             <Item
                 label={item}
+                onReserve={() => this.handleReserve(index)}
             />
         ));
 
