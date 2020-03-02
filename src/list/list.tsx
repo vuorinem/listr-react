@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { FunctionComponent } from "react";
 import { Item } from "./item";
 
 type ListProps = {
@@ -10,24 +10,18 @@ const TestItems = [
     'Third item',
 ];
 
-export class List extends Component<ListProps> {
-    handleReserve(itemIndex: number) {
-        alert(`Reserved '${TestItems[itemIndex]}'`);
-    }
+function handleReserve(itemIndex: number) {
+    alert(`Reserved '${TestItems[itemIndex]}'`);
+}
 
-    render() {
-        const items = TestItems.map((item, index) => (
+export const List: FunctionComponent<ListProps> = (props) => (
+    <div className="listr-list">
+        <h1>{props.name}</h1>
+        {TestItems.map((item, index) => (
             <Item
                 label={item}
-                onReserve={() => this.handleReserve(index)}
+                onReserve={() => handleReserve(index)}
             />
-        ));
-
-        return (
-            <div className="listr-list">
-                <h1>{this.props.name}</h1>
-                {items}
-            </div>
-        );
-    }
-}
+        ))}
+    </div>
+)

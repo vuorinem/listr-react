@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { FunctionComponent } from "react";
 import { ReserveButton } from "./reserve-button";
 
 type ItemProps = {
@@ -6,14 +6,10 @@ type ItemProps = {
     onReserve: () => void;
 }
 
-export class Item extends Component<ItemProps> {
-    render() {
-        return (
-            <div className="listr-item">
-                <span className="listr-item-name">{this.props.label}</span>
-                <ReserveButton
-                    onClick={this.props.onReserve} />
-            </div>
-        );
-    }
-}
+export const Item: FunctionComponent<ItemProps> = (props) => (
+    <div className="listr-item">
+        <span className="listr-item-name">{props.label}</span>
+        <ReserveButton
+            onClick={props.onReserve} />
+    </div>
+)

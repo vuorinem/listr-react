@@ -1,15 +1,11 @@
-import React, { Component } from "react";
+import React, { FunctionComponent } from "react";
 
 type ReserveButtonProps = {
     onClick: () => void;
 }
 
-export class ReserveButton extends Component<ReserveButtonProps> {
-    render() {
-        return (
-            <button
-                onClick={this.props.onClick}
-            >Reserve</button>
-        );
-    }
-}
+export const ReserveButton: FunctionComponent<ReserveButtonProps> = (props) => (
+    <button
+        onClick={props.onClick}
+    >Reserve</button>
+)
