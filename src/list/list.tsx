@@ -11,8 +11,8 @@ const TestItems = [
 ];
 
 export const List: FunctionComponent<ListProps> = (props) => {
-    const handleReserve = (itemIndex: number) => {
-        alert(`Reserved '${TestItems[itemIndex]}'`);
+    const handleReserve = (item: string) => {
+        alert(`Reserved '${item}'`);
     }
 
     return (
@@ -21,7 +21,7 @@ export const List: FunctionComponent<ListProps> = (props) => {
             {TestItems.map((item, index) => (
                 <Item
                     label={item}
-                    onReserve={() => handleReserve(index)}
+                    onReserve={(item) => handleReserve(item)}
                 />
             ))}
         </div>
