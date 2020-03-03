@@ -20,6 +20,7 @@ export const List: FunctionComponent<ListProps> = (props) => {
             <h1>{props.name}</h1>
             {TestItems.map((item, index) => (
                 <Item
+                    key={index}
                     label={item}
                     onReserve={(item) => handleReserve(item)}
                 />
