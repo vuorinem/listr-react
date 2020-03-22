@@ -1,14 +1,14 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { Item } from "./item";
-import { ListData, getList } from "./list-api";
+import { ListData, getList, ItemData } from "./list-api";
 
 type ListProps = {
     name: string;
 }
 
 export const List: FunctionComponent<ListProps> = (props) => {
-    const handleReserve = (item: string) => {
-        alert(`Reserved '${item}'`);
+    const handleReserve = (item: ItemData) => {
+        alert(`Reserved '${item.label}'`);
     }
 
     const [list, setList] = useState<ListData | null>(null);
@@ -27,7 +27,7 @@ export const List: FunctionComponent<ListProps> = (props) => {
             {list?.items.map((item, index) => (
                 <Item
                     key={index}
-                    label={item.label}
+                    item={item}
                     onReserve={(item) => handleReserve(item)}
                 />
             ))}

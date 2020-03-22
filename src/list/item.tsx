@@ -1,15 +1,16 @@
 import React, { FunctionComponent } from "react";
 import { ReserveButton } from "./reserve-button";
+import { ItemData } from "./list-api";
 
 type ItemProps = {
-    label: string;
-    onReserve: (item: string) => void;
+    item: ItemData;
+    onReserve: (item: ItemData) => void;
 }
 
 export const Item: FunctionComponent<ItemProps> = (props) => (
     <div className="listr-item">
-        <span className="listr-item-name">{props.label}</span>
+        <span className="listr-item-name">{props.item.label}</span>
         <ReserveButton
-            onClick={() => props.onReserve(props.label)} />
+            onClick={() => props.onReserve(props.item)} />
     </div>
 )
