@@ -13,7 +13,7 @@ export type ListData = {
 
 export function getList(name: string): Promise<ListData> {
     // TODO: Make the API call
-    return Promise.resolve(<ListData>{
+    return Promise.resolve({
         name: name,
         items: [
             {
@@ -38,5 +38,5 @@ export function getList(name: string): Promise<ListData> {
                 myReservedCount: 1,
             },
         ],
-    });
+    } as ListData);
 }
