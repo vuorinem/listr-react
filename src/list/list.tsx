@@ -29,6 +29,7 @@ export const List: FunctionComponent<ListProps> = (props) => {
                     key={index}
                     item={item}
                     onReserve={(item) => handleReserve(item)}
+                    onCancel={(item) => handleReserve(item)}
                 />
             ))}
         </div>
