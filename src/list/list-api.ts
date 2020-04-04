@@ -1,3 +1,9 @@
+import { connect } from 'socket.io-client';
+
+const socketClient = connect('http://localhost:3004', {
+
+});
+
 export type ItemData = {
     label: string;
     link?: string;
@@ -11,32 +17,40 @@ export type ListData = {
     items: ItemData[];
 }
 
-export function getList(name: string): Promise<ListData> {
-    // TODO: Make the API call
-    return Promise.resolve({
-        name: name,
-        items: [
-            {
-                label: 'First item',
-                count: 1,
-                link: 'https://www.google.com',
-                reservedCount: 0,
-                myReservedCount: 0,
-            },
-            {
-                label: 'Second item',
-                count: 1,
-                link: 'https://www.google.com',
-                reservedCount: 1,
-                myReservedCount: 0,
-            },
-            {
-                label: 'Third item',
-                count: 1,
-                link: 'https://www.google.com',
-                reservedCount: 1,
-                myReservedCount: 1,
-            },
-        ],
-    } as ListData);
+export type Unsubscribe = () => void;
+
+export async function getList(name: string): Promise<ListData | null> {
+    const response = await fetch('http://localhost:3003/list?name=' + name);
+
+    if (!response.ok) {
+        return null;
+    }
+
+    return response.json();
+}
+
+export async function reserve(listName: string, itemLabel: string): Promise<boolean> {
+    const response = await fetch(`http://localhost:3003/list/reserve?name=${listName}&item=${itemLabel}`, {
+        method: 'post',
+    });
+
+    return response.ok;
+}
+
+export async function cancel(listName: string, itemLabel: string): Promise<boolean> {
+    const response = await fetch(`http://localhost:3003/list/cancel?name=${listName}&item=${itemLabel}`, {
+        method: 'post',
+    });
+
+    return response.ok;
+}
+
+export function subscribe(listName: string, onChange: () => void): Unsubscribe {
+    const subscription = socketClient.on(listName, () => {
+        onChange();
+    });
+
+    return () => {
+        subscription.off(listName);
+    };
 }
