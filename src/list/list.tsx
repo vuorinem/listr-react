@@ -7,11 +7,24 @@ type ListProps = {
 }
 
 export const List: FunctionComponent<ListProps> = (props) => {
-    const handleReserve = (item: ItemData) => {
-        alert(`Reserved '${item.label}'`);
+    const [list, setList] = useState<ListData | null>(null);
+    let unsubscribe: Unsubscribe | null = null;
+
+    const handleReserve = async (item: ItemData) => {
+        if (!list) {
+            return;
+        }
+
+        await reserve(list.name, item.label);
     }
 
-    const [list, setList] = useState<ListData | null>(null);
+    const handleCancel = async (item: ItemData) => {
+        if (!list) {
+            return;
+        }
+
+        await cancel(list.name, item.label);
+    }
 
     useEffect(() => {
         const loadList = async () => {
@@ -29,7 +42,7 @@ export const List: FunctionComponent<ListProps> = (props) => {
                     key={index}
                     item={item}
                     onReserve={(item) => handleReserve(item)}
-                    onCancel={(item) => handleReserve(item)}
+                    onCancel={(item) => handleCancel(item)}
                 />
             ))}
         </div>
