@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { Item } from "./item";
-import { ListData, getList, ItemData } from "./list-api";
+import { ListData, getList, ItemData, subscribe, Unsubscribe, reserve, cancel } from "./list-api";
 
 type ListProps = {
     name: string;
@@ -26,12 +26,18 @@ export const List: FunctionComponent<ListProps> = (props) => {
         await cancel(list.name, item.label);
     }
 
-    useEffect(() => {
-        const loadList = async () => {
-            setList(await getList(props.name));
-        };
+    const loadList = async () => {
+        setList(await getList(props.name));
+    };
 
+    useEffect(() => {
         loadList();
+
+        if (unsubscribe !== null) {
+            unsubscribe();
+        }
+
+        unsubscribe = subscribe(props.name, () => loadList());
     }, [props.name]);
 
     return (
