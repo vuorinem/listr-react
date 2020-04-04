@@ -38,6 +38,12 @@ export const List: FunctionComponent<ListProps> = (props) => {
         }
 
         unsubscribe = subscribe(props.name, () => loadList());
+
+        return () => {
+            if (unsubscribe !== null) {
+                unsubscribe();
+            }
+        };
     }, [props.name]);
 
     return (
