@@ -1,8 +1,7 @@
 import { connect } from 'socket.io-client';
 
-const socketClient = connect('http://localhost:3004', {
-
-});
+const currentHost = window.location.hostname;
+const socketClient = connect(`http://${currentHost}:3004`);
 
 export type ItemData = {
     label: string;
@@ -20,7 +19,7 @@ export type ListData = {
 export type Unsubscribe = () => void;
 
 export async function getList(name: string): Promise<ListData | null> {
-    const response = await fetch('http://localhost:3003/list?name=' + name);
+    const response = await fetch(`http://${currentHost}:3003/list?name=${name}`);
 
     if (!response.ok) {
         return null;
@@ -30,7 +29,7 @@ export async function getList(name: string): Promise<ListData | null> {
 }
 
 export async function reserve(listName: string, itemLabel: string): Promise<boolean> {
-    const response = await fetch(`http://localhost:3003/list/reserve?name=${listName}&item=${itemLabel}`, {
+    const response = await fetch(`http://${currentHost}:3003/list/reserve?name=${listName}&item=${itemLabel}`, {
         method: 'post',
     });
 
@@ -38,7 +37,7 @@ export async function reserve(listName: string, itemLabel: string): Promise<bool
 }
 
 export async function cancel(listName: string, itemLabel: string): Promise<boolean> {
-    const response = await fetch(`http://localhost:3003/list/cancel?name=${listName}&item=${itemLabel}`, {
+    const response = await fetch(`http://${currentHost}:3003/list/cancel?name=${listName}&item=${itemLabel}`, {
         method: 'post',
     });
 
